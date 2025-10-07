@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Essay - Sadhana Anumasu</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>My Essay Title</h1>
+        <p class="subtitle">By <strong>Sadhana Anumasu</strong></p>
+    </header>
+
+    <main>
+        <section>
+            <h2>Introduction</h2>
+            <p>
+                Welcome to my essay. This section introduces the main topic and explains the background behind my discussion. 
+                Clear structure and readability are crucial in any web-based document, so this version has been carefully formatted for visual appeal and accessibility.
+            </p>
+        </section>
+
+        <section>
+            <h2>Main Content</h2>
+            <p>
+                The main section of the essay contains several paragraphs that discuss ideas, examples, and reasoning. 
+                Good design enhances comprehension — color, spacing, and typography help readers engage with content instead of being distracted by clutter.
+            </p>
+            <p>
+                In this design, headings are clearly distinguished, the text is comfortably sized, and generous white space allows the eyes to rest.
+                The colors were chosen to maintain contrast and professionalism while providing a warm and approachable tone.
+            </p>
+        </section>
+
+        <section>
+            <h2>Conclusion</h2>
+            <p>
+                In conclusion, aesthetics and readability go hand in hand in effective design. This essay demonstrates how proper CSS styling 
+                can transform a plain page into a polished presentation while maintaining semantic integrity and accessibility.
+            </p>
+        </section>
+
+        <section id="addendum">
+            <h2>Addendum: Stylistic Choices</h2>
+
+            <h3>Font Choices</h3>
+            <p>
+                I used <strong>Georgia</strong> for headings because it conveys a formal, academic tone. 
+                The body text uses <strong>Arial</strong>, a modern sans-serif font that is easy to read on screens.
+            </p>
+
+            <h3>Heading and Text Sizes</h3>
+            <p>
+                The title (<code>h1</code>) is 40px for prominence. Section headings (<code>h2</code>) are 28px, and subheadings (<code>h3</code>) are 22px. 
+                The paragraph text is set to 18px for comfortable reading distance and flow.
+            </p>
+
+            <h3>Color Choices</h3>
+            <p>
+                I chose a <strong>pink and navy palette</strong> for a soft yet elegant appearance. The background is light pink for warmth, and text uses darker shades for contrast.
+            </p>
+
+            <h3>Margins and Padding</h3>
+            <p>
+                The document includes generous padding (25–40px) to maintain white space and focus attention on content.
+                Each section has soft borders and shadows to define structure and improve readability.
+            </p>
+
+            <h3>HTML Abuse</h3>
+            <p>
+                In Lab 2, I used an <code>&lt;h2&gt;</code> tag for the main title purely for visual reasons. 
+                This has now been corrected to <code>&lt;h1&gt;</code> to preserve semantic structure. 
+                All visual adjustments are now handled with CSS, not HTML.
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <p><strong>Created by:</strong> Sadhana Anumasu</p>
+        <p><strong>Last Modified:</strong> <span id="lastModified"></span></p>
+    </footer>
+
+    <script type="text/javascript">
+        const lastModified = document.lastModified;
+        document.getElementById("lastModified").textContent = lastModified;
+    </script>
+</body>
+</html>
