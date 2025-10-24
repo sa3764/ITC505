@@ -2,87 +2,85 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Lab 3: Blue Fonts</title>
-<!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Pacifico&family=Inconsolata&display=swap" rel="stylesheet">
-<style>
-/* Background gradient: navy blue → sky blue */
-body {
-  background: linear-gradient(135deg, #0d1f4a, #6aa0f8);
-  background-attachment: fixed;
-  padding: 30px;
-  font-size: 18px;
-  color: #fff;
-}
-
-/* Heading aligned left with subtle animation */
-h1 {
-  font-family: 'Pacifico', cursive;
-  font-size: 3em;
-  color: #cce0ff;
-  margin-bottom: 30px;
-  text-align: left;
-  animation: slideIn 3s ease-out forwards;
-}
-@keyframes slideIn {
-  0% { transform: translateX(-100%); opacity: 0; }
-  100% { transform: translateX(0); opacity: 1; }
-}
-
-/* First paragraph animation */
-.para1 {
-  font-family: 'Montserrat', sans-serif;
-  color: #e0e7ff;
-  margin-bottom: 20px;
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
-  animation: floatUp 3s ease-in-out infinite;
-}
-@keyframes floatUp {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
-}
-
-/* Second paragraph animation */
-.para2 {
-  font-family: 'Inconsolata', monospace;
-  color: #d0e0ff;
-  margin-bottom: 20px;
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
-  animation: swingText 4s ease-in-out infinite;
-}
-@keyframes swingText {
-  0%, 100% { transform: rotate(-2deg); }
-  50% { transform: rotate(2deg); }
-}
-
-/* Footer */
-footer {
-  margin-top: 50px;
-  font-size: 0.9em;
-  color: #a0c4ff;
-  text-align: center;
-}
-</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>InstaMart - Holy Grail Layout</title>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<h1>Blue Fonts Lab</h1>
-<p class="para1">
-To use custom fonts, we include a link from Google Fonts in the <code>&lt;head&gt;</code> of the HTML.
-This ensures the chosen font is downloaded and displayed properly across all browsers, even if users do not have it installed locally.
-</p>
-<p class="para2">
-After importing the font, we reference it in CSS using the <code>font-family</code> property.
-This way, visitors see the exact font style we selected, enhancing the page’s design and readability.
-</p>
-<footer>
-<p>Last updated: <span id="lastModified"></span></p>
-</footer>
-<script type="text/javascript">
-document.getElementById('lastModified').textContent = document.lastModified;
-</script>
+<div class="container">
+    <header>
+        <img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=80" alt="InstaMart Logo">
+        InstaMart 🛒
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#home">🏠 Home</a></li>
+            <li><a href="#products">🍎 Products</a></li>
+            <li><a href="#about">👩 About Us</a></li>
+            <li><a href="#contact">📧 Contact</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="home">
+            <h2>Welcome to InstaMart 🛒</h2>
+            <p>
+                InstaMart is a food distribution company providing fresh and high-quality products delivered directly to your door. We offer fresh and diverse products, easy online ordering, timely delivery, and special discounts. 🍏🥦🥛
+            </p>
+            <h3>Features for Customers ✨:</h3>
+            <ul>
+                <li>Fresh and diverse food products 🍏🥦🍞</li>
+                <li>Easy online delivery 🚚💨</li>
+                <li>Timely delivery ⏰</li>
+                <li>Special discounts 💰🎉</li>
+                <li>Website benefits for smooth shopping experience 💻</li>
+            </ul>
+        </section>
+
+        <section id="products">
+            <h2>Product Categories 🍎🥦🥛🍪🥤🍞</h2>
+            <ul class="products">
+                <li>Fruits</li>
+                <li>Vegetables</li>
+                <li>Dairy</li>
+                <li>Snacks</li>
+                <li>Beverages</li>
+                <li>Bakery Items</li>
+            </ul>
+        </section>
+
+        <section id="about">
+            <h2>About Us 👩</h2>
+            <p>Name: Sadhana Anumasu</p>
+            <p>Email: sa3764@nau.edu</p>
+        </section>
+
+        <section id="contact">
+            <h2>Contact 📧</h2>
+            <p>Email: sa3764@nau.edu</p>
+        </section>
+
+        <section>
+            <h3>Interactive Bubble Sort Demo 🔢:</h3>
+            <p>Click the button to sort this array: <strong>[5, 3, 8, 1, 2]</strong></p>
+            <button onclick="bubbleSort()">Sort Array</button>
+            <div id="result"></div>
+        </section>
+    </main>
+
+    <aside>
+        <a href="https://www.amazon.com/s?k=laptop" target="_blank">
+            <img src="https://images.unsplash.com/photo-1580910051077-b28fca5b1705?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=200" alt="SFW Product Ad">
+        </a>
+    </aside>
+
+    <footer>
+        <p>Last updated: <span id="lastModified"></span></p>
+    </footer>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
+
