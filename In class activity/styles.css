@@ -1,0 +1,90 @@
+body {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  background-color: #b3e5fc; /* Baby Blue background */
+  color: #333;
+  min-height: 100vh;
+  transition: background 0.6s ease, color 0.6s ease;
+}
+
+/* Header */
+header {
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(6px);
+  padding: 20px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.6);
+}
+
+header h1 {
+  margin: 0;
+  color: #1a237e;
+}
+
+header p {
+  margin-top: 8px;
+  font-weight: 500;
+  color: #0d47a1;
+}
+
+/* Card Layout */
+.card {
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  margin: 30px auto;
+  padding: 25px;
+  width: 350px;
+  transition: transform 0.3s ease, background 0.6s ease;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+h2 {
+  color: #1565c0;
+  margin-bottom: 10px;
+}
+
+/* Buttons */
+button {
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #1976d2;
+  color: #fff;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+button:hover {
+  transform: scale(1.1);
+  background-color: #0d47a1;
+}
+
+/* Input Field */
+input[type="text"] {
+  padding: 8px;
+  width: 70%;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  outline: none;
+}
+
+/* Emoji Display */
+.emoji {
+  font-size: 60px;
+  margin-top: 15px;
+}
+
+/* Footer */
+footer {
+  margin-top: 40px;
+  background: rgba(255, 255, 255, 0.3);
+  padding: 10px;
+  color: #111;
+}
