@@ -3,7 +3,7 @@ body {
   margin: 0;
   padding: 0;
   text-align: center;
-  background-color: #b3e5fc; /* Baby Blue background */
+  background-color: #b3e5fc; /* Baby blue background */
   color: #333;
   min-height: 100vh;
   transition: background 0.6s ease, color 0.6s ease;
