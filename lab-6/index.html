@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📰 News and Trends ✨</title>
+    <style>
+        /* ====== Basic Holy Grail Layout using CSS Grid ====== */
+        body {
+            display: grid;
+            grid-template-areas:
+                "header header header"
+                "nav main aside"
+                "footer footer footer";
+            grid-template-columns: 1fr 2fr 1fr;
+            grid-template-rows: auto 1fr auto;
+            gap: 10px;
+            margin: 0;
+            background-color: #fff9c4; /* baby yellow */
+            font-family: "Poppins", sans-serif;
+        }
+
+        header {
+            grid-area: header;
+            background-color: #ffb74d;
+            text-align: center;
+            padding: 1rem;
+            color: white;
+            border-bottom: 4px solid #f57c00;
+            font-size: 2em;
+        }
+
+        nav {
+            grid-area: nav;
+            background-color: #fff3e0;
+            padding: 1rem;
+            border-right: 3px solid #fbc02d;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        nav li {
+            margin: 0.75rem 0;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #f57c00;
+            font-weight: bold;
+        }
+
+        main {
+            grid-area: main;
+            background-color: #fffde7;
+            text-align: center;
+            padding: 1rem;
+            border-left: 3px solid #fbc02d;
+            border-right: 3px solid #fbc02d;
+        }
+
+        aside {
+            grid-area: aside;
+            background-color: #ffecb3;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        aside img {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+        }
+
+        footer {
+            grid-area: footer;
+            background-color: #ffb74d;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            border-top: 4px solid #f57c00;
+            font-weight: bold;
+        }
+
+        /* Simple responsiveness */
+        @media (max-width: 768px) {
+            body {
+                grid-template-areas:
+                    "header"
+                    "nav"
+                    "main"
+                    "aside"
+                    "footer";
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        🗞️ <strong>News and Trends</strong> 🌍
+    </header>
+
+    <!-- Navigation Menu -->
+    <nav>
+        <ul>
+            <li><a href="#">🏠 Home</a></li>
+            <li><a href="#">🌐 World</a></li>
+            <li><a href="#">💼 Business</a></li>
+            <li><a href="#">🎨 Lifestyle</a></li>
+            <li><a href="#">🎮 Entertainment</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <h2>Welcome to News and Trends ✨</h2>
+        <p>Stay updated with the latest happenings around the world! 🌏💬</p>
+        <p>We bring you the top stories, trends, and updates that matter to you — in business, tech, lifestyle, and entertainment!</p>
+        <p>💡 Fun Fact: The “Holy Grail Layout” is one of the most iconic page structures in web design history.</p>
+    </main>
+
+    <!-- Advertisement Section -->
+    <aside>
+        <h3>💻 Sponsored Ad</h3>
+        <a href="https://www.amazon.com/" target="_blank">
+            <img src="https://m.media-amazon.com/images/I/71E5zB1qbIL._AC_SL1500_.jpg" alt="Laptop Advertisement">
+        </a>
+        <p>Click the image to check out amazing laptop deals on Amazon! 🛍️</p>
+    </aside>
+
+    <!-- Footer -->
+    <footer>
+        <p>💛 Created by Sadhana Anumasu | Last updated:
+            <span id="lastModified"></span>
+        </p>
+    </footer>
+
+    <script>
+        /* ====== Last Modified Script ====== */
+        const x = document.lastModified;
+        document.getElementById("lastModified").textContent = x;
+    </script>
+</body>
+</html>
+
+

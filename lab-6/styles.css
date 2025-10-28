@@ -1,0 +1,152 @@
+/* ====== HOLY GRAIL LAYOUT ====== */
+body {
+    display: grid;
+    grid-template-areas:
+        "header header header"
+        "nav main aside"
+        "footer footer footer";
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: auto 1fr auto;
+    gap: 10px;
+    margin: 0;
+    background-color: #fff9c4; /* baby yellow */
+    font-family: "Poppins", sans-serif;
+}
+
+/* ====== HEADER ====== */
+header {
+    grid-area: header;
+    background-color: #ffb74d;
+    color: white;
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 2rem;
+    border-bottom: 4px solid #f57c00;
+}
+
+/* ====== NAVIGATION ====== */
+nav {
+    grid-area: nav;
+    background-color: #fff3e0;
+    padding: 1rem;
+    border-right: 3px solid #fbc02d;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav li {
+    margin: 0.75rem 0;
+}
+
+nav a {
+    text-decoration: none;
+    color: #f57c00;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: #ef6c00;
+}
+
+/* ====== MAIN CONTENT ====== */
+main {
+    grid-area: main;
+    background-color: #fffde7;
+    text-align: center;
+    padding: 1rem;
+    border-left: 3px solid #fbc02d;
+    border-right: 3px solid #fbc02d;
+}
+
+main h2 {
+    color: #f57c00;
+}
+
+main p {
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* ====== ASIDE (Advertisement) ====== */
+aside {
+    grid-area: aside;
+    background-color: #ffecb3;
+    text-align: center;
+    padding: 1rem;
+    border-left: 3px solid #fbc02d;
+}
+
+aside img {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+aside p {
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+}
+
+/* ====== FOOTER ====== */
+footer {
+    grid-area: footer;
+    background-color: #ffb74d;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    border-top: 4px solid #f57c00;
+    font-weight: bold;
+}
+
+/* ====== INTERACTIVE JS BOX ====== */
+.js-section {
+    background-color: #fff8e1;
+    border: 2px dashed #fbc02d;
+    padding: 1rem;
+    margin: 1.5rem auto;
+    border-radius: 12px;
+    width: 80%;
+    transition: transform 0.3s;
+}
+
+.js-section:hover {
+    transform: scale(1.03);
+}
+
+button {
+    background-color: #f57c00;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+    background-color: #ff9800;
+    transform: scale(1.05);
+}
+
+/* ====== RESPONSIVE DESIGN ====== */
+@media (max-width: 768px) {
+    body {
+        grid-template-areas:
+            "header"
+            "nav"
+            "main"
+            "aside"
+            "footer";
+        grid-template-columns: 1fr;
+    }
+
+    .js-section {
+        width: 95%;
+    }
+}
