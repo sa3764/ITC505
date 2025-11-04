@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Haunted Mansion Investigation 👻</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="fog"></div>
+
+    <header>
+        <h1>🏚️ Haunted Mansion Investigation 👻</h1>
+        <p>Enter if you dare... explore the rooms, uncover the truth, and face your fate.</p>
+    </header>
+
+    <main>
+        <div id="story" class="fade"></div>
+        <!-- Image of Haunted Mansion -->
+        <img id="storyImage" src="images/haunted_mansion.jpg" alt="Haunted Mansion" class="fade" style="width:100%; max-width:600px;">
+        <div id="choices"></div>
+    </main>
+
+    <footer>
+        <p>Last updated: <span id="lastModified"></span></p>
+    </footer>
+
+    <!-- Background Haunted Ambience -->
+    <audio autoplay loop>
+        <source src="sounds/haunted_ambience.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // Footer last modified
+        var x = document.lastModified;
+        document.getElementById('lastModified').textContent = x;
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
+
+
