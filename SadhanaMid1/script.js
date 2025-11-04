@@ -1,82 +1,151 @@
 const storyStages = {
   start: {
-    text: "You stand before a crumbling old mansion. Locals whisper it’s haunted — tonight, you must uncover its secrets. Will you enter?",
+    text: "You stand before the abandoned St. Mercy Hospital. The doors creak open by themselves. Inside, something moves. Do you dare to enter?",
     choices: [
-      { text: "Step inside the mansion", next: "hallway" },
-      { text: "Circle around the house", next: "cemetery" }
+      { text: "Enter the hospital", next: "lobby" },
+      { text: "Explore the ambulance bay", next: "bay" }
     ],
-    image: "images/haunted_mansion.jpg"
+    image: "images/hospital_outside.jpg"
   },
-  hallway: {
-    text: "The door creaks open... Dust floats in the moonlight. A faint whisper echoes from upstairs.",
+
+  lobby: {
+    text: "The air smells like rust and decay. The lights flicker, revealing blood-stained walls. A wheelchair moves on its own down the hallway.",
     choices: [
-      { text: "Go upstairs toward the whisper", next: "attic" },
-      { text: "Explore the old library", next: "library" }
+      { text: "Follow the wheelchair", next: "ward" },
+      { text: "Go toward the operating room", next: "operating" }
+    ],
+    image: "images/lobby.jpg"
+  },
+
+  bay: {
+    text: "The ambulance bay is silent. You see an old patient file fluttering in the wind. The name on it... is yours.",
+    choices: [
+      { text: "Read the file", next: "ending_file" },
+      { text: "Drop it and go inside", next: "lobby" }
+    ],
+    image: "images/ambulance_bay.jpg"
+  },
+
+  ward: {
+    text: "You follow the wheelchair into a dark ward. Rows of beds are covered with dusty sheets. One of them... moves.",
+    choices: [
+      { text: "Pull off the sheet", next: "ending_patient" },
+      { text: "Run to the nurse station", next: "nurseStation" }
+    ],
+    image: "images/ward.jpg"
+  },
+
+  operating: {
+    text: "The operating room reeks of old blood. The lights flicker on, revealing surgical tools laid out neatly... still wet.",
+    choices: [
+      { text: "Inspect the tools", next: "ending_surgeon" },
+      { text: "Leave immediately", next: "hallway" }
+    ],
+    image: "images/operating_room.jpg"
+  },
+
+  hallway: {
+    text: "A faint voice calls your name from the darkness. You see a glowing door marked 'MORGUE'.",
+    choices: [
+      { text: "Enter the morgue", next: "morgue" },
+      { text: "Ignore it and go upstairs", next: "staircase" }
     ],
     image: "images/hallway.jpg"
   },
-  attic: {
-    text: "You climb the creaky stairs into the attic. A mirror glows faintly — your reflection smiles back before you do.",
+
+  morgue: {
+    text: "Cold air hits you. Body drawers line the walls. One of them slides open slowly. Something whispers... 'You were never discharged.'",
     choices: [
-      { text: "Touch the mirror", next: "cursed" },
-      { text: "Run back downstairs", next: "hallway" }
+      { text: "Open the drawer", next: "ending_morgue" },
+      { text: "Run away", next: "ending_escape" }
     ],
-    image: "images/attic.jpg"
+    image: "images/morgue.jpg"
   },
-  library: {
-    text: "Cobwebs drape the shelves. An open diary lies on a dusty table. Its ink seems freshly wet...",
+
+  staircase: {
+    text: "The stairway creaks. Halfway up, you see bloody footprints leading to a dimly lit room labeled 'ICU'.",
     choices: [
-      { text: "Read the diary", next: "awakening" },
-      { text: "Search behind the bookshelf", next: "treasure" }
+      { text: "Enter ICU", next: "icu" },
+      { text: "Go back down", next: "hallway" }
     ],
-    image: "images/library.jpg"
+    image: "images/stairs.jpg"
   },
-  treasure: {
-    text: "Behind the shelf, you find a secret room — filled with gold and bones. A spirit whispers: 'Take it... if you dare.'",
+
+  icu: {
+    text: "Inside the ICU, monitors beep faintly. One patient is awake — their eyes are white. They whisper, 'You shouldn’t be alive.'",
     choices: [
-      { text: "Take the treasure", next: "cursed" },
-      { text: "Leave quietly", next: "escape" }
+      { text: "Ask what they mean", next: "ending_truth" },
+      { text: "Unplug the machines", next: "ending_silence" }
     ],
-    image: "images/treasure.jpg"
+    image: "images/icu.jpg"
   },
-  awakening: {
-    text: "The diary trembles... a ghostly figure rises from the ink! It screams your name.",
+
+  nurseStation: {
+    text: "You find a dusty nurse station. A radio crackles to life: 'Code Red — patient loose in Ward 7!'",
     choices: [
-      { text: "Apologize and close the book", next: "escape" },
-      { text: "Challenge the spirit", next: "vanished" }
+      { text: "Hide under the desk", next: "ending_found" },
+      { text: "Run down the corridor", next: "ending_corridor" }
     ],
-    image: "images/diary.jpg"
+    image: "images/nurse_station.jpg"
   },
-  cemetery: {
-    text: "You find a hidden graveyard behind the mansion. One grave glows faintly with your initials carved on it...",
-    choices: [
-      { text: "Touch the grave", next: "grave" },
-      { text: "Run back inside", next: "hallway" }
-    ],
-    image: "images/cemetery.jpg"
-  },
-  grave: {
-    text: "As your hand touches the stone, the ground gives way — and you fall into darkness. The mansion claims another soul.",
+
+  // 🔥 ENDINGS
+  ending_file: {
+    text: "The file says: 'Time of death — tonight.' As you read, your heart stops. You were already a patient here.",
     choices: [],
-    image: "images/grave.jpg"
+    image: "images/ending_file.jpg"
   },
-  cursed: {
-    text: "Your reflection laughs as shadows consume you. The curse is sealed — forever.",
+
+  ending_patient: {
+    text: "Under the sheet is... you. The body smiles. You never left the hospital.",
     choices: [],
-    image: "images/cursed.jpg"
+    image: "images/ending_patient.jpg"
   },
-  vanished: {
-    text: "The ghost’s scream fades. You open your eyes... the mansion is gone. So are you.",
+
+  ending_surgeon: {
+    text: "You touch a scalpel — it's warm. A shadow behind you whispers: 'The operation isn't over.'",
     choices: [],
-    image: "images/vanished.jpg"
+    image: "images/ending_surgeon.jpg"
   },
-  escape: {
-    text: "You sprint out into the dawn! The mansion shrieks behind you as it fades into mist. You survived — for now...",
+
+  ending_morgue: {
+    text: "Inside the drawer lies your name tag and a toe tag. The door slams shut. Eternal silence.",
     choices: [],
-    image: "images/sunrise_escape.jpg"
+    image: "images/ending_morgue.jpg"
+  },
+
+  ending_escape: {
+    text: "You burst outside, gasping — dawn breaks. But when you look back, the hospital is gone.",
+    choices: [],
+    image: "images/ending_escape.jpg"
+  },
+
+  ending_truth: {
+    text: "The patient says, 'You died in this hospital five years ago.' Your vision fades. You remember everything.",
+    choices: [],
+    image: "images/ending_truth.jpg"
+  },
+
+  ending_silence: {
+    text: "You pull the plug. The beeping stops. A voice whispers, 'Now, we switch places.'",
+    choices: [],
+    image: "images/ending_silence.jpg"
+  },
+
+  ending_found: {
+    text: "Footsteps approach. Something cold grabs your ankle. You’re dragged into the darkness.",
+    choices: [],
+    image: "images/ending_found.jpg"
+  },
+
+  ending_corridor: {
+    text: "You run endlessly through dark hallways. The hospital keeps shifting — you’ll never find the exit.",
+    choices: [],
+    image: "images/ending_corridor.jpg"
   }
 };
 
+// 🧠 GAME FUNCTIONS
 let currentStage = "start";
 
 function startGame() {
@@ -86,37 +155,29 @@ function startGame() {
 
 function updatePage() {
   const stage = storyStages[currentStage];
-  const storyDiv = document.getElementById("story");
+  document.getElementById("story-text").textContent = stage.text;
+  document.getElementById("story-image").src = stage.image;
+
   const choicesDiv = document.getElementById("choices");
-  const storyImg = document.getElementById("storyImage");
-
-  storyDiv.textContent = stage.text;
-  storyImg.style.opacity = 0;
-
-  setTimeout(() => {
-    storyImg.src = stage.image;
-    storyImg.style.opacity = 1;
-  }, 300);
-
   choicesDiv.innerHTML = "";
-  if(stage.choices.length === 0){
-    const btn = document.createElement("button");
-    btn.textContent = "🔁 Play Again";
-    btn.onclick = startGame;
-    choicesDiv.appendChild(btn);
-  } else {
-    stage.choices.forEach(choice => {
-      const btn = document.createElement("button");
-      btn.textContent = choice.text;
-      btn.onclick = () => {
-        currentStage = choice.next;
-        updatePage();
-      };
-      choicesDiv.appendChild(btn);
-    });
+
+  if (stage.choices.length === 0) {
+    const endBtn = document.createElement("button");
+    endBtn.textContent = "🔁 Try a Different Fate";
+    endBtn.onclick = startGame;
+    choicesDiv.appendChild(endBtn);
+    return;
   }
+
+  stage.choices.forEach(choice => {
+    const btn = document.createElement("button");
+    btn.textContent = choice.text;
+    btn.onclick = () => {
+      currentStage = choice.next;
+      updatePage();
+    };
+    choicesDiv.appendChild(btn);
+  });
 }
 
-window.onload = startGame;
-
-
+startGame();
