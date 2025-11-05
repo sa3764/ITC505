@@ -1,161 +1,136 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Fredoka+One&display=swap');
-
+/* Basic body & theme */
 body {
-  margin: 0;
-  font-family: 'Roboto', sans-serif;
-  background: #f0f8ff;
-  color: #333;
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(120deg, #f0f8ff, #d3ffd3);
+  color: #222;
   text-align: center;
+  margin: 0;
+  padding: 0;
   transition: background 0.5s, color 0.5s;
 }
 
-.dark {
-  background: #1a1a1a;
-  color: #fff;
+body.dark {
+  background: linear-gradient(120deg, #222, #444);
+  color: #f0f8ff;
 }
 
-h1.title, .banner {
-  font-family: 'Fredoka One', cursive;
-  color: black !important;
-}
-
+/* Header */
 header {
-  padding: 20px;
-  background: #4caf50;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  padding: 20px 0;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin: 0;
 }
 
 .banner {
   font-size: 1.2rem;
+  animation: bounce 2s infinite;
 }
 
-.dashboard {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 15px;
-  padding: 20px;
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
 }
 
+/* Controls */
 .controls {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 20px;
+  margin: 20px 0;
 }
 
-.controls input, .controls select, .controls button {
-  padding: 10px 15px;
+input, select, button {
+  padding: 14px 16px;
+  margin: 5px;
+  font-size: 1.1rem;
   border-radius: 10px;
-  border: none;
-  font-size: 1rem;
+  border: 1px solid #ccc;
   cursor: pointer;
 }
 
-.controls button {
-  background-color: #ff9800;
-  color: white;
-  font-weight: bold;
-  transition: transform 0.2s;
+button:hover, select:hover, input:hover {
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
-.controls button:hover {
-  transform: scale(1.05);
-}
-
-.cards {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  justify-content: center;
-  width: 100%;
-}
-
-.card {
-  background: rgba(255,255,255,0.9);
-  border-radius: 15px;
-  padding: 15px;
-  min-width: 280px;
-  max-width: 350px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  transition: background 0.5s;
-}
-
-.dark .card {
-  background: rgba(0,0,0,0.5);
-}
-
-.card h2 {
-  font-family: 'Fredoka One', cursive;
-  font-size: 1.4rem;
-  margin-bottom: 10px;
-  color: black !important;
-}
-
+/* Task List */
 ul {
   list-style: none;
   padding: 0;
+  margin-top: 20px;
 }
 
 li {
-  margin: 5px 0;
-  padding: 8px 12px;
-  border-radius: 8px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: transform 0.2s;
+  padding: 14px;
+  background: #e0e0e0;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s, transform 0.3s;
+  font-size: 1.2rem;
 }
 
-li.low { background-color: #4caf50; color: white; }
-li.medium { background-color: #ffeb3b; color: black; }
-li.high { background-color: #f44336; color: white; }
+li.show {
+  opacity: 1;
+  transform: translateY(0);
+}
 
-li:hover { transform: scale(1.02); }
+body.dark li {
+  background: #555;
+}
 
+/* Sweet Note */
+#sweetNote {
+  margin: 20px 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ff69b4;
+  min-height: 30px;
+  transition: opacity 0.5s;
+}
+
+/* Progress Bar */
 #progressContainer {
-  background: #ddd;
-  border-radius: 10px;
-  height: 20px;
-  width: 100%;
+  width: 80%;
+  height: 25px;
+  margin: 20px auto;
+  background: #ccc;
+  border-radius: 15px;
   overflow: hidden;
-  margin-top: 10px;
 }
 
 #progressBar {
-  background: linear-gradient(90deg, #4caf50, #81c784);
   height: 100%;
   width: 0%;
-  border-radius: 10px;
+  background: linear-gradient(90deg, #4caf50, #81c784);
+  border-radius: 15px;
   transition: width 0.5s;
 }
 
+/* Motivational Quotes */
+#quote {
+  font-size: 1.1rem;
+  font-style: italic;
+  margin-top: 10px;
+  min-height: 30px;
+}
+
+/* Footer */
+footer {
+  margin-top: 30px;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* Confetti canvas */
 #confetti {
   position: fixed;
   top: 0;
   left: 0;
   pointer-events: none;
-  z-index: 0;
   width: 100%;
   height: 100%;
-  background: transparent;
+  z-index: 9999;
 }
-
-footer {
-  padding: 15px;
-  background: #4caf50;
-  color: white;
-  margin-top: 20px;
-  font-size: 0.9rem;
-}
-
-@media(max-width:768px){
-  .cards { flex-direction: column; align-items: center; }
-  .card { width: 90%; }
-  .controls { flex-direction: column; align-items: center; }
-}
-
 

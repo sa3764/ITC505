@@ -1,25 +1,27 @@
-const CACHE_NAME = 'todoistic-cache-v1';
+const CACHE_NAME = 'pwa-todo-cache-v1';
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/style.css',
-  '/app.js',
-  '/manifest.json',
-  '/icons/icon-192x192.png',
-  '/icons/icon-512x512.png'
+  './',
+  './index.html',
+  './style.css',
+  './app.js',
+  './manifest.json',
+  './icon-192.png',
+  './icon-512.png'
 ];
 
-// Install
-self.addEventListener('install', event => {
+// Install Service Worker and cache files
+self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache))
+    caches.open(CACHE_NAME).then(cache => {
+      return cache.addAll(urlsToCache);
+    })
   );
 });
 
-// Activate
-self.addEventListener('activate', event => {
+// Activate Service Worker and clean old caches
+self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then(keys =>
+    caches.keys().then(keys => 
       Promise.all(keys.map(key => {
         if (key !== CACHE_NAME) return caches.delete(key);
       }))
@@ -27,9 +29,11 @@ self.addEventListener('activate', event => {
   );
 });
 
-// Fetch
-self.addEventListener('fetch', event => {
+// Fetch: Serve cached content if offline
+self.addEventListener('fetch', (event) => {
   event.respondWith(
-    caches.match(event.request).then(response => response || fetch(event.request))
+    caches.match(event.request).then(response => {
+      return response || fetch(event.request);
+    })
   );
 });
