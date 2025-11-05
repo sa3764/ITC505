@@ -1,0 +1,135 @@
+/* Basic body & theme */
+body {
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(120deg, #f0f8ff, #d3ffd3);
+  color: #222;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  transition: background 0.5s, color 0.5s;
+}
+
+body.dark {
+  background: linear-gradient(120deg, #222, #444);
+  color: #f0f8ff;
+}
+
+/* Header */
+header {
+  padding: 20px 0;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.banner {
+  font-size: 1.2rem;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Controls */
+.controls {
+  margin: 20px 0;
+}
+
+input, select, button {
+  padding: 14px 16px;
+  margin: 5px;
+  font-size: 1.1rem;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+button:hover, select:hover, input:hover {
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* Task List */
+ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+li {
+  padding: 14px;
+  background: #e0e0e0;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s, transform 0.3s;
+  font-size: 1.2rem;
+}
+
+li.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+body.dark li {
+  background: #555;
+}
+
+/* Sweet Note */
+#sweetNote {
+  margin: 20px 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ff69b4;
+  min-height: 30px;
+  transition: opacity 0.5s;
+}
+
+/* Progress Bar */
+#progressContainer {
+  width: 80%;
+  height: 25px;
+  margin: 20px auto;
+  background: #ccc;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+#progressBar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #4caf50, #81c784);
+  border-radius: 15px;
+  transition: width 0.5s;
+}
+
+/* Motivational Quotes */
+#quote {
+  font-size: 1.1rem;
+  font-style: italic;
+  margin-top: 10px;
+  min-height: 30px;
+}
+
+/* Footer */
+footer {
+  margin-top: 30px;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* Confetti canvas */
+#confetti {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+}
