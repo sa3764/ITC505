@@ -1,0 +1,22 @@
+{
+  "name": "Todoistic 📝",
+  "short_name": "Todoistic",
+  "description": "Organize, track & celebrate your tasks offline and online! 🎉",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f0f8ff",
+  "theme_color": "#f0f8ff",
+  "icons": [
+    {
+      "src": "image.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "image.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
+
