@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🌊 Underwater Kingdom Mad Lib</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <h1>🐚 Create Your Underwater Kingdom Story!</h1>
+  <p>Fill in the blanks below to create your magical ocean adventure.</p>
+
+  <form action="/ITC505/lab-7/index.html" method="POST">
+    <label for="name">Hero’s Name:</label>
+    <input type="text" name="name" id="name" required />
+
+    <label for="adjective">Adjective (e.g., sparkling, brave):</label>
+    <input type="text" name="adjective" id="adjective" required />
+
+    <label for="animal">Sea Creature (e.g., dolphin, jellyfish):</label>
+    <input type="text" name="animal" id="animal" required />
+
+    <label for="place">Ocean Place (e.g., Coral Reef, Atlantis):</label>
+    <input type="text" name="place" id="place" required />
+
+    <label for="verb">Action Verb (e.g., swim, explore):</label>
+    <input type="text" name="verb" id="verb" required />
+
+    <button type="submit">🌊 Generate My Story</button>
+  </form>
+
+  <footer>
+    <p>Last updated: <span id="lastModified"></span></p>
+  </footer>
+
+  <!-- Floating bubbles -->
+  <div class="bubble"></div>
+  <div class="bubble"></div>
+  <div class="bubble"></div>
+  <div class="bubble"></div>
+  <div class="bubble"></div>
+
+  <script type="text/javascript">
+    var x = document.lastModified;
+    document.getElementById('lastModified').textContent = x;
+  </script>
+
+</body>
+</html>
+
+
