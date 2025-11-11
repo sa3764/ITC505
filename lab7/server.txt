@@ -1,0 +1,42 @@
+const express = require('express');
+const path = require('path');
+const logger = require('morgan');
+const server = express();
+
+server.use(express.urlencoded({ extended: true }));
+server.use(express.json());
+server.use(logger('dev'));
+
+// Serve static files from lab-7
+server.use(express.static(path.join(__dirname, 'lab-7')));
+
+// POST handler for Mad Lib submission (returns JSON)
+server.post('/submit', (req, res) => {
+    const { astronaut, planet, alien, vehicle, adjective } = req.body;
+
+    if (!astronaut || !planet || !alien || !vehicle || !adjective) {
+        res.status(400).json({ error: 'Please fill out ALL fields' });
+        return;
+    }
+
+    const madLib = `
+    Captain ${astronaut} embarked on a daring mission to ${planet}. 
+    Along the way, they encountered a ${adjective} ${alien} who offered to ride in their ${vehicle}. 
+    Together, they explored the galaxy and discovered wonders beyond imagination!
+    `;
+
+    // Addendum explanation
+    const addendum = `
+    <p><strong>Addendum:</strong> This mad lib explores teamwork and adventure in space. 
+    Users fill in words like astronaut names, alien species, and adjectives to personalize the story.</p>
+    `;
+
+    res.json({ story: madLib, addendum: addendum });
+});
+
+// Set port
+const port = process.argv[2] === 'local' ? 8080 : 80;
+server.listen(port, () => console.log(`Server running on port ${port}`));
+
+
+

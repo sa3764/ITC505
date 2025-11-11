@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Adventure Mad Lib</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>🌌 Space Adventure Mad Lib 🌌</h1>
+
+    <form id="madLibForm">
+        <label for="astronaut">Astronaut Name:</label>
+        <input type="text" id="astronaut" name="astronaut" required>
+
+        <label for="planet">Planet Name:</label>
+        <input type="text" id="planet" name="planet" required>
+
+        <label for="alien">Alien Species:</label>
+        <input type="text" id="alien" name="alien" required>
+
+        <label for="vehicle">Space Vehicle:</label>
+        <input type="text" id="vehicle" name="vehicle" required>
+
+        <label for="adjective">Adjective:</label>
+        <input type="text" id="adjective" name="adjective" required>
+
+        <button type="submit">Generate Story</button>
+    </form>
+
+    <!-- Result will appear here -->
+    <div id="result" class="result"></div>
+
+    <!-- Footer with last modified -->
+    <footer>
+        <p>Last updated: 
+            <span id="lastModified"></span>
+        </p>
+    </footer>
+
+    <script>
+        document.getElementById('lastModified').textContent = document.lastModified;
+
+        const form = document.getElementById('madLibForm');
+        const resultDiv = document.getElementById('result');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+
+            try {
+                const response = await fetch('/submit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    resultDiv.innerHTML = `<p class="error">${error.error}</p>`;
+                    return;
+                }
+
+                const result = await response.json();
+                resultDiv.innerHTML = `
+                    <h2>🚀 Your Space Adventure Story 🚀</h2>
+                    <p>${result.story}</p>
+                    ${result.addendum}
+                `;
+            } catch (err) {
+                resultDiv.innerHTML = `<p class="error">Error: ${err.message}</p>`;
+            }
+        });
+    </script>
+</body>
+</html>
+
+
