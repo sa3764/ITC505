@@ -1,0 +1,138 @@
+/* ===============================
+   🌊 Underwater Kingdom Mad Lib
+   =============================== */
+
+body {
+  font-family: 'Trebuchet MS', sans-serif;
+  background: linear-gradient(to bottom right, #89f7fe, #66a6ff);
+  color: #00334e;
+  padding: 30px;
+  max-width: 650px;
+  margin: auto;
+  animation: floatBackground 8s ease-in-out infinite alternate;
+}
+
+@keyframes floatBackground {
+  from { background-position: 0 0; }
+  to { background-position: 100% 100%; }
+}
+
+h1 {
+  text-align: center;
+  color: #00293d;
+  text-shadow: 2px 2px 5px rgba(0, 0, 50, 0.2);
+}
+
+p {
+  text-align: center;
+  color: #013c5c;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+form:hover {
+  transform: scale(1.01);
+}
+
+label {
+  font-weight: bold;
+  color: #00334e;
+}
+
+input {
+  padding: 10px;
+  border-radius: 6px;
+  border: 2px solid #7fc8f8;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+input:focus {
+  border-color: #005fa3;
+  box-shadow: 0 0 5px rgba(0, 95, 163, 0.5);
+}
+
+button {
+  background: linear-gradient(90deg, #0078d7, #00b4d8);
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  transition: background 0.3s ease, transform 0.2s;
+}
+
+button:hover {
+  background: linear-gradient(90deg, #005fa3, #0096c7);
+  transform: scale(1.05);
+}
+
+.story-box {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  margin: 20px auto;
+  max-width: 600px;
+}
+
+.back-btn {
+  display: inline-block;
+  background: #0078d7;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.back-btn:hover {
+  background: #005fa3;
+}
+
+footer {
+  margin-top: 25px;
+  text-align: center;
+  color: #00293d;
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+footer span {
+  font-weight: bold;
+  color: #004e89;
+}
+
+/* Bubble animation */
+@keyframes bubbles {
+  0% { transform: translateY(0) scale(1); opacity: 0.9; }
+  100% { transform: translateY(-100vh) scale(1.3); opacity: 0; }
+}
+
+.bubble {
+  position: fixed;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  animation: bubbles 8s infinite ease-in;
+  z-index: -1;
+}
+
+.bubble:nth-child(1) { left: 10%; width: 20px; height: 20px; animation-delay: 0s; }
+.bubble:nth-child(2) { left: 30%; width: 15px; height: 15px; animation-delay: 2s; }
+.bubble:nth-child(3) { left: 50%; width: 25px; height: 25px; animation-delay: 4s; }
+.bubble:nth-child(4) { left: 70%; width: 18px; height: 18px; animation-delay: 1s; }
+.bubble:nth-child(5) { left: 85%; width: 12px; height: 12px; animation-delay: 3s; }
+
