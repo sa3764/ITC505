@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Adventure Mad Lib</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>🌌 Space Adventure Mad Lib 🌌</h1>
+    <form action="/submit" method="POST">
+        <label for="astronaut">Astronaut Name:</label>
+        <input type="text" id="astronaut" name="astronaut" required>
+
+        <label for="planet">Planet Name:</label>
+        <input type="text" id="planet" name="planet" required>
+
+        <label for="alien">Alien Species:</label>
+        <input type="text" id="alien" name="alien" required>
+
+        <label for="vehicle">Space Vehicle:</label>
+        <input type="text" id="vehicle" name="vehicle" required>
+
+        <label for="adjective">Adjective:</label>
+        <input type="text" id="adjective" name="adjective" required>
+
+        <button type="submit">Generate Story</button>
+    </form>
+
+    <footer>
+        <p>Last updated: 
+            <span id="lastModified"></span>
+        </p>
+    </footer>
+
+    <script type="text/javascript">
+         document.getElementById('lastModified').textContent = document.lastModified;
+    </script>
+</body>
+</html>
