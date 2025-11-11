@@ -1,79 +1,116 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Space Adventure Mad Lib</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ITC505 Lab 7 — Romantic Mad Lib</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>🌌 Space Adventure Mad Lib 🌌</h1>
+  <div class="container">
+    <h1>Romantic Mad Lib — ITC505 Lab 7</h1>
+    <p>Fill in the blanks and create a short romantic vignette. The result will appear right below after you click submit — all on the same page.</p>
 
-    <form id="madLibForm">
-        <label for="astronaut">Astronaut Name:</label>
-        <input type="text" id="astronaut" name="astronaut" required>
+    <div id="message" aria-live="polite"></div>
 
-        <label for="planet">Planet Name:</label>
-        <input type="text" id="planet" name="planet" required>
+    <form id="madlibForm" autocomplete="off" novalidate>
+      <label for="loverName">Name of a lover / beloved (e.g., "Alex") — <small>required</small></label>
+      <input id="loverName" name="loverName" type="text" required>
 
-        <label for="alien">Alien Species:</label>
-        <input type="text" id="alien" name="alien" required>
+      <label for="adjective1">Adjective to describe the voice/moment (e.g., "soft") — <small>required</small></label>
+      <input id="adjective1" name="adjective1" type="text" required>
 
-        <label for="vehicle">Space Vehicle:</label>
-        <input type="text" id="vehicle" name="vehicle" required>
+      <label for="adjective2">Second adjective to describe the feeling (e.g., "timeless")</label>
+      <input id="adjective2" name="adjective2" type="text">
 
-        <label for="adjective">Adjective:</label>
-        <input type="text" id="adjective" name="adjective" required>
+      <label for="pluralNoun">Plural noun (e.g., "lanterns", "lakes") — <small>required</small></label>
+      <input id="pluralNoun" name="pluralNoun" type="text" required>
 
-        <button type="submit">Generate Story</button>
+      <label for="verbPast">A past-tense verb (e.g., "danced", "laughed") — <small>required</small></label>
+      <input id="verbPast" name="verbPast" type="text" required>
+
+      <label for="place">A place (city, park, or location) — <small>required</small></label>
+      <input id="place" name="place" type="text" required>
+
+      <label for="number">A number (e.g., "one", "three")</label>
+      <input id="number" name="number" type="text">
+
+      <label for="romanticObject">A romantic object (e.g., "rose", "letter")</label>
+      <input id="romanticObject" name="romanticObject" type="text">
+
+      <button type="submit">Create My Romantic Mad Lib</button>
     </form>
 
-    <!-- Result will appear here -->
-    <div id="result" class="result"></div>
+    <!-- RESULT WILL APPEAR HERE -->
+    <section id="resultContainer" style="display:none;">
+      <div class="result" aria-live="polite">
+        <h2>Your Romantic Mad Lib</h2>
+        <p id="madlibText"></p>
+      </div>
+    </section>
 
-    <!-- Footer with last modified -->
     <footer>
-        <p>Last updated: 
-            <span id="lastModified"></span>
-        </p>
+      <p>Last updated:
+        <span id="lastModified"></span>
+      </p>
     </footer>
+  </div>
 
-    <script>
-        document.getElementById('lastModified').textContent = document.lastModified;
+  <script>
+    // Escape helper for safety
+    function escapeHtml(s) {
+      if (s === null || s === undefined) return ''
+      return String(s)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;')
+    }
 
-        const form = document.getElementById('madLibForm');
-        const resultDiv = document.getElementById('result');
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('madlibForm')
+      const resultContainer = document.getElementById('resultContainer')
+      const madlibText = document.getElementById('madlibText')
+      const messageDiv = document.getElementById('message')
 
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
+      form.addEventListener('submit', (e) => {
+        e.preventDefault()
+        messageDiv.innerHTML = ''
 
-            const formData = new FormData(form);
-            const data = Object.fromEntries(formData.entries());
+        const formData = new FormData(form)
+        const vals = {}
+        formData.forEach((v, k) => vals[k] = (v || '').trim())
 
-            try {
-                const response = await fetch('/submit', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data)
-                });
+        const required = ['loverName','adjective1','pluralNoun','verbPast','place']
+        const missing = required.filter(k => !vals[k])
+        if (missing.length) {
+          messageDiv.innerHTML = `<div class="error"><strong>Fill required fields:</strong> ${missing.join(', ')}</div>`
+          return
+        }
 
-                if (!response.ok) {
-                    const error = await response.json();
-                    resultDiv.innerHTML = `<p class="error">${error.error}</p>`;
-                    return;
-                }
+        // Defaults for optional fields
+        vals.adjective2 = vals.adjective2 || 'timeless'
+        vals.number = vals.number || 'one'
+        vals.romanticObject = vals.romanticObject || 'rose'
 
-                const result = await response.json();
-                resultDiv.innerHTML = `
-                    <h2>🚀 Your Space Adventure Story 🚀</h2>
-                    <p>${result.story}</p>
-                    ${result.addendum}
-                `;
-            } catch (err) {
-                resultDiv.innerHTML = `<p class="error">Error: ${err.message}</p>`;
-            }
-        });
-    </script>
+        // Build mad lib
+        const s = (x) => escapeHtml(vals[x])
+        const madlib = `
+          It was ${s('number')} evening(s) in ${s('place')} when ${s('loverName')} whispered in ${s('adjective1')} tones.
+          They held ${s('romanticObject')} close and remembered how ${s('loverName')} once ${s('verbPast')} among the ${s('pluralNoun')}.
+          The night felt ${s('adjective2')}, painting the ${s('pluralNoun')} with light and laughter — a memory that would never fade.
+        `
+
+        madlibText.innerHTML = madlib
+        resultContainer.style.display = 'block'
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      })
+
+      // Footer last modified
+      document.getElementById('lastModified').textContent = document.lastModified
+    })
+  </script>
 </body>
 </html>
 
