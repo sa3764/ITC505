@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Lab 8: Input Validation</title>
+  <style>
+    :root{
+      --bg:#ffe6f0;       /* baby pink */
+      --card:#ff6699;     /* dark pink card */
+      --card-contrast: #ffffff;
+      --accent:#ff4081;
+      --muted:#ffb6d3;
+      --error:#ffcccc;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: "Segoe UI", Roboto, Arial, sans-serif;
+      background-color:var(--bg);
+      height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .card{
+      background:var(--card);
+      color:var(--card-contrast);
+      width:min(460px, 96%);
+      padding:28px;
+      border-radius:16px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.24);
+    }
+
+    h1{
+      margin:0 0 12px 0;
+      font-size:20px;
+      text-align:center;
+      letter-spacing:0.6px;
+    }
+
+    label{
+      display:block;
+      margin-top:12px;
+      font-weight:600;
+      font-size:13px;
+    }
+
+    input{
+      display:block;
+      width:100%;
+      padding:10px;
+      margin-top:6px;
+      border-radius:8px;
+      border: none;
+      font-size:14px;
+    }
+
+    input:focus{
+      outline:3px solid rgba(255,230,240,0.8);
+    }
+
+    .row{
+      margin-bottom:6px;
+    }
+
+    .error{
+      color:var(--error);
+      font-size:13px;
+      margin-top:6px;
+      display:none;
+    }
+
+    .error[aria-hidden="false"]{ display:block; }
+
+    .btn{
+      margin-top:18px;
+      width:100%;
+      padding:12px;
+      border-radius:8px;
+      border:none;
+      background:#fff;
+      color:var(--accent);
+      font-weight:700;
+      font-size:16px;
+      cursor:pointer;
+      transition: transform .22s ease, background-color .22s ease, color .22s ease;
+    }
+
+    .btn:hover{
+      transform:scale(1.04);
+      background:var(--muted);
+      color:var(--card-contrast);
+    }
+
+    /* success modal (centered overlay) */
+    .modal-overlay{
+      position:fixed;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:rgba(0,0,0,0.36);
+      opacity:0;
+      pointer-events:none;
+      transition:opacity .22s ease;
+    }
+    .modal-overlay.show{
+      opacity:1;
+      pointer-events:auto;
+    }
+    .modal{
+      background:var(--card-contrast);
+      color:#222;
+      padding:20px 22px;
+      border-radius:12px;
+      width:min(440px, 92%);
+      box-shadow:0 8px 30px rgba(0,0,0,0.28);
+      transform: translateY(12px);
+      transition: transform .22s ease, opacity .22s ease;
+      opacity:0;
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+    .modal-overlay.show .modal{
+      transform: translateY(0);
+      opacity:1;
+    }
+    .modal h2{ margin:0 0 6px 0; font-size:18px; }
+    .modal p{ margin:0; font-size:14px; color:#444; }
+    .close-modal{
+      margin-top:12px;
+      display:inline-block;
+      padding:8px 12px;
+      border-radius:8px;
+      background:var(--accent);
+      color:white;
+      border:none;
+      cursor:pointer;
+      font-weight:700;
+    }
+
+    /* check icon container */
+    .check-wrap{
+      width:60px;
+      height:60px;
+      flex:0 0 60px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    /* animated SVG check */
+    .check {
+      width:48px;
+      height:48px;
+      transform: scale(.6);
+      opacity:0;
+    }
+    /* pop animation for whole check */
+    .modal-overlay.show .check {
+      animation: pop .32s cubic-bezier(.2,.9,.2,1) forwards .05s;
+      opacity:1;
+    }
+    @keyframes pop {
+      0% { transform: scale(.6); opacity:0; }
+      60% { transform: scale(1.08); opacity:1; }
+      100% { transform: scale(1); opacity:1; }
+    }
+
+    /* stroke draw animation */
+    .check-circle, .check-path{
+      fill: none;
+      stroke-width:3.5;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+      stroke: var(--accent);
+      stroke-dasharray: 1000;
+      stroke-dashoffset: 1000;
+    }
+
+    .modal-overlay.show .check-circle {
+      animation: draw 0.55s ease forwards 0.05s;
+    }
+    .modal-overlay.show .check-path {
+      animation: draw 0.45s ease forwards 0.48s;
+    }
+    @keyframes draw {
+      to { stroke-dashoffset: 0; }
+    }
+
+    /* small responsive tweak */
+    @media (max-width:420px){
+      .card{ padding:18px }
+      .modal{ padding:14px; gap:10px }
+      .check-wrap{ width:50px; height:50px; flex:0 0 50px }
+    }
+  </style>
+</head>
+<body>
+  <main class="card" aria-labelledby="title">
+    <h1 id="title">User Registration</h1>
+
+    <form id="userForm" novalidate>
+      <!-- First Name -->
+      <div class="row">
+        <label for="fname">First Name</label>
+        <input id="fname" name="fname" type="text" autocomplete="given-name" aria-describedby="fnameError" />
+        <div id="fnameError" class="error" aria-hidden="true" aria-live="polite">First name is required.</div>
+      </div>
+
+      <!-- Last Name -->
+      <div class="row">
+        <label for="lname">Last Name</label>
+        <input id="lname" name="lname" type="text" autocomplete="family-name" aria-describedby="lnameError" />
+        <div id="lnameError" class="error" aria-hidden="true" aria-live="polite">Last name is required.</div>
+      </div>
+
+      <!-- Email -->
+      <div class="row">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" autocomplete="email" aria-describedby="emailError" />
+        <div id="emailError" class="error" aria-hidden="true" aria-live="polite">Enter a valid email (e.g., name@example.com).</div>
+      </div>
+
+      <!-- Password -->
+      <div class="row">
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" autocomplete="new-password" aria-describedby="passwordError" />
+        <div id="passwordError" class="error" aria-hidden="true" aria-live="polite">Password is required.</div>
+      </div>
+
+      <!-- Confirm Password -->
+      <div class="row">
+        <label for="confirmPassword">Confirm Password</label>
+        <input id="confirmPassword" name="confirmPassword" type="password" autocomplete="new-password" aria-describedby="confirmPasswordError" />
+        <div id="confirmPasswordError" class="error" aria-hidden="true" aria-live="polite">Passwords must match.</div>
+      </div>
+
+      <button class="btn" type="submit">Submit</button>
+    </form>
+  </main>
+
+  <!-- Success modal with animated check -->
+  <div id="successOverlay" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal" role="document">
+      <div class="check-wrap" aria-hidden="true">
+        <!-- SVG animated check: circle then path -->
+        <svg class="check" viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle class="check-circle" cx="26" cy="26" r="20"></circle>
+          <path class="check-path" d="M16 27 l8 8 l12 -14"></path>
+        </svg>
+      </div>
+      <div style="flex:1">
+        <h2 id="successTitle">Registration Successful</h2>
+        <p id="successMessage">Thanks — your account has been created.</p>
+        <div style="margin-top:10px">
+          <button class="close-modal" id="closeModalBtn" type="button">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // --- Utility: sanitize input to prevent XSS when inserting into DOM ---
+    function sanitizeInput(str) {
+      if (typeof str !== 'string') return '';
+      return str.replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#39;");
+    }
+
+    // --- Elements ---
+    const form = document.getElementById('userForm');
+    const fname = document.getElementById('fname');
+    const lname = document.getElementById('lname');
+    const email = document.getElementById('email');
+    const password = document.getElementById('password');
+    const confirmPassword = document.getElementById('confirmPassword');
+
+    const fnameError = document.getElementById('fnameError');
+    const lnameError = document.getElementById('lnameError');
+    const emailError = document.getElementById('emailError');
+    const passwordError = document.getElementById('passwordError');
+    const confirmPasswordError = document.getElementById('confirmPasswordError');
+
+    const overlay = document.getElementById('successOverlay');
+    const successMessage = document.getElementById('successMessage');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+
+    // email regex (reasonable validation)
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    // Helper to toggle error
+    function setError(elem, errElem, show, text){
+      if(show){
+        errElem.textContent = text;
+        errElem.setAttribute('aria-hidden','false');
+        elem.setAttribute('aria-invalid','true');
+      } else {
+        errElem.setAttribute('aria-hidden','true');
+        elem.removeAttribute('aria-invalid');
+      }
+    }
+
+    // Real-time validation on input
+    function realTimeValidateField(e){
+      const el = e.target;
+      if(el === fname) {
+        const v = fname.value.trim();
+        setError(fname, fnameError, v === '', 'First name is required.');
+      } else if(el === lname){
+        const v = lname.value.trim();
+        setError(lname, lnameError, v === '', 'Last name is required.');
+      } else if(el === email){
+        const v = email.value.trim();
+        setError(email, emailError, v === '' ? true : !emailPattern.test(v), v === '' ? 'Email is required.' : 'Enter a valid email (e.g., name@example.com).');
+      } else if(el === password){
+        const v = password.value;
+        setError(password, passwordError, v === '', 'Password is required.');
+        // also validate confirm password if filled
+        if(confirmPassword.value !== '') {
+          setError(confirmPassword, confirmPasswordError, password.value !== confirmPassword.value, 'Passwords must match.');
+        }
+      } else if(el === confirmPassword){
+        setError(confirmPassword, confirmPasswordError, confirmPassword.value !== password.value, 'Passwords must match.');
+      }
+    }
+
+    // Attach input listeners for real-time validation
+    [fname,lname,email,password,confirmPassword].forEach(input => {
+      input.addEventListener('input', realTimeValidateField);
+      // sanitize on blur to avoid leaving raw dangerous chars in fields displayed by browsers' autocomplete
+      input.addEventListener('blur', () => {
+        input.value = sanitizeInput(input.value);
+      });
+    });
+
+    // Validate all fields on submit
+    function validateAll(){
+      let ok = true;
+
+      // trim and sanitize local copies used for checks
+      const vF = fname.value.trim();
+      const vL = lname.value.trim();
+      const vE = email.value.trim();
+      const vP = password.value;
+      const vC = confirmPassword.value;
+
+      if(vF === ''){ setError(fname, fnameError, true, 'First name is required.'); ok = false; } else setError(fname, fnameError, false);
+      if(vL === ''){ setError(lname, lnameError, true, 'Last name is required.'); ok = false; } else setError(lname, lnameError, false);
+
+      if(vE === ''){ setError(email, emailError, true, 'Email is required.'); ok = false; }
+      else if(!emailPattern.test(vE)){ setError(email, emailError, true, 'Enter a valid email (e.g., name@example.com).'); ok = false; }
+      else setError(email, emailError, false);
+
+      if(vP === ''){ setError(password, passwordError, true, 'Password is required.'); ok = false; } else setError(password, passwordError, false);
+
+      if(vC === ''){ setError(confirmPassword, confirmPasswordError, true, 'Confirm your password.'); ok = false; }
+      else if(vC !== vP){ setError(confirmPassword, confirmPasswordError, true, 'Passwords must match.'); ok = false; }
+      else setError(confirmPassword, confirmPasswordError, false);
+
+      return ok;
+    }
+
+    // Show modal (success) with animated check
+    function showSuccess(firstName){
+      // sanitized display of user's first name (optional + friendly)
+      const safeName = sanitizeInput(firstName || '');
+      successMessage.textContent = safeName ? `Thanks, ${safeName}! Your account has been created.` : 'Thanks — your account has been created.';
+      // reset any inline SVG stroke offsets before showing (so animation restarts reliably)
+      const circle = overlay.querySelector('.check-circle');
+      const path = overlay.querySelector('.check-path');
+      if(circle && circle.getTotalLength){ circle.style.strokeDashoffset = circle.getTotalLength(); }
+      if(path && path.getTotalLength){ path.style.strokeDashoffset = path.getTotalLength(); }
+
+      overlay.classList.add('show');
+      overlay.setAttribute('aria-hidden','false');
+
+      // auto-hide after 3.2s
+      setTimeout(hideSuccess, 3200);
+    }
+    function hideSuccess(){
+      overlay.classList.remove('show');
+      overlay.setAttribute('aria-hidden','true');
+    }
+
+    // Close button on modal
+    closeModalBtn.addEventListener('click', () => {
+      hideSuccess();
+    });
+
+    // Clicking outside modal closes it
+    overlay.addEventListener('click', (evt) => {
+      if(evt.target === overlay) hideSuccess();
+    });
+
+    // Form submit handler
+    form.addEventListener('submit', function(e){
+      e.preventDefault(); // client-side handling for this lab
+      const valid = validateAll();
+      if(!valid){
+        // focus first invalid input for accessibility
+        const firstInvalid = form.querySelector('[aria-invalid="true"]');
+        if(firstInvalid) firstInvalid.focus();
+        return;
+      }
+
+      // all good -> sanitize values (to avoid storing/displaying raw user input)
+      const safeFirst = sanitizeInput(fname.value.trim());
+
+      // show modal (animated check)
+      showSuccess(safeFirst);
+
+      // reset the form after a short delay so user sees success
+      setTimeout(() => {
+        form.reset();
+        // hide errors after reset
+        [fnameError,lnameError,emailError,passwordError,confirmPasswordError].forEach(el => el.setAttribute('aria-hidden','true'));
+      }, 1400);
+    });
+  </script>
+</body>
+</html>
+
